@@ -90,7 +90,7 @@ public class Grid implements Iterable<Cell> {
     }
 
 
-    // TODO: Écrire une version correcte de cette méthode.
+    // TODO: Écrire une version correcte de cette méthode
     private List<Cell> getNeighbours(int rowIndex, int columnIndex) {
         List<Cell> voisin = new ArrayList<Cell>();
         for (int i = rowIndex-1; i <= rowIndex+1; i++) {
