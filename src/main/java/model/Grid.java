@@ -118,13 +118,27 @@ public class Grid implements Iterable<Cell> {
     // TODO: Écrire une version correcte de cette méthode.
     private CellState calculateNextState(int rowIndex, int columnIndex) {
         if(countAliveNeighbours(rowIndex,columnIndex)==3 && !getCell(rowIndex,columnIndex).isAlive())
-            return CellState.ALIVE;
+            return majorityColor(rowIndex,columnIndex);
         if((countAliveNeighbours(rowIndex,columnIndex)==3 || countAliveNeighbours(rowIndex,columnIndex) == 2) && getCell(rowIndex,columnIndex).isAlive())
-            return CellState.ALIVE;
+            return getCell(rowIndex,columnIndex).getState();
         return CellState.DEAD;
     }
 
+    private CellState majorityColor(int rowIndex, int columnIndex){
+        int blue=0,red=0;
+        List<Cell> list=getNeighbours(rowIndex,columnIndex);
+        for(Cell cell:list) {
+            if(cell.getState()==CellState.ALIVEBLUE)
+                blue++;
+            if(cell.getState()==CellState.ALIVERED)
+                red++;
+        }
+        if(blue>=red)
+            return CellState.ALIVEBLUE;
+        else
+            return CellState.ALIVERED;
 
+    }
 
     // TODO: Écrire une version correcte de cette méthode.
     private CellState[][] calculateNextStates() {
@@ -178,9 +192,9 @@ public class Grid implements Iterable<Cell> {
     }
 
     /**
-     * Goes through each {@link Cell} in this {@code Grid} and randomly sets its state as ALIVE or DEAD.
+     * Goes through each {@link Cell} in this {@code Grid} and randomly sets its state as ALIVERED or DEAD.
      *
-     * @param random {@link Random} instance used to decide if each {@link Cell} is ALIVE or DEAD.
+     * @param random {@link Random} instance used to decide if each {@link Cell} is ALIVERED or DEAD.
      * @throws NullPointerException if {@code random} is {@code null}.
      */
     // TODO: Écrire une version correcte de cette méthode.
@@ -188,9 +202,13 @@ public class Grid implements Iterable<Cell> {
         for (int i=0; i<getNumberOfRows(); i++) {
             for (int j=0; j<getNumberOfColumns(); j++) {
                 if (random.nextBoolean())
-                    this.cells[i][j].setState(CellState.ALIVE);
-                else
                     this.cells[i][j].setState(CellState.DEAD);
+                else
+                    if(random.nextBoolean())
+                        this.cells[i][j].setState(CellState.ALIVERED);
+                    else
+                        this.cells[i][j].setState(CellState.ALIVEBLUE);
+
             }
         }
     }
