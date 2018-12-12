@@ -96,7 +96,13 @@ public class Grid implements Iterable<Cell> {
 
     // TODO: Écrire une version correcte de cette méthode.
     private int countAliveNeighbours(int rowIndex, int columnIndex) {
-        return 0;
+        List<Cell> list=getNeighbours(rowIndex,columnIndex);
+        int somme=0;
+        for(Cell cell:list) {
+            if (cell.isAlive())
+                somme++;
+        }
+        return somme;
     }
 
     // TODO: Écrire une version correcte de cette méthode.
