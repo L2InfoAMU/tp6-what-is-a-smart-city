@@ -188,9 +188,9 @@ public class Grid implements Iterable<Cell> {
         for (int i=0; i<getNumberOfRows(); i++) {
             for (int j=0; j<getNumberOfColumns(); j++) {
                 if (random.nextBoolean())
-                    this.cells[i][j].setState(CellState.DEAD);
-                else
                     this.cells[i][j].setState(CellState.ALIVE);
+                else
+                    this.cells[i][j].setState(CellState.DEAD);
             }
         }
     }
